@@ -21,6 +21,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostService postService;
 
+    @Transactional
     public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto) {
         Post post = postService.findById(postId);
         Comment comment = new Comment(post, requestDto);

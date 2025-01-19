@@ -35,6 +35,14 @@ public class PostController {
         return new ResponseEntity<>(postService.getAllPosts(page - 1, pageSize), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponseDto>> getAllPostsByTitle(
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+        @RequestParam(value = "title") String title) {
+        return new ResponseEntity<>(postService.getAllPostsByTitle(page - 1, pageSize, title), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<PostResponseDto> updatePost(@PathVariable(value = "id") Long id, @Valid @RequestBody PostRequestDto requestDto) {
         return new ResponseEntity<>(postService.updatePost(id, requestDto), HttpStatus.OK);

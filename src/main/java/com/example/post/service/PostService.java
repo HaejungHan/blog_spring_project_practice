@@ -46,6 +46,11 @@ public class PostService {
         return postList.stream().map(post -> new PostResponseDto(post)).toList();
     }
 
+    public List<PostResponseDto> getAllPostsByTitle(int page, int pageSize, String title) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Post> postListByTitle = postRepository.findByTitleContaining(title, pageable);
+        return postListByTitle.stream().map(post -> new PostResponseDto(post)).toList();
+    }
 
     @Transactional
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
