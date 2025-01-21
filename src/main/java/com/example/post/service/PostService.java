@@ -39,17 +39,17 @@ public class PostService {
 //        } return responseDtos;
 //    }
 
-    public List<PostResponseDto> getAllPosts(int page, int pageSize) {
+    public Page<PostResponseDto> getAllPosts(int page, int pageSize) {
         Pageable pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC,"createdAt"));
         Page<Post> postList = postRepository.findAll(pageRequest);
 
-        return postList.stream().map(post -> new PostResponseDto(post)).toList();
+        return postList.map(post -> new PostResponseDto(post));
     }
 
-    public List<PostResponseDto> getAllPostsByTitle(int page, int pageSize, String title) {
+    public Page<PostResponseDto> getAllPostsByTitle(int page, int pageSize, String title) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<Post> postListByTitle = postRepository.findByTitleContaining(title, pageable);
-        return postListByTitle.stream().map(post -> new PostResponseDto(post)).toList();
+        return postListByTitle.map(post -> new PostResponseDto(post));
     }
 
     @Transactional

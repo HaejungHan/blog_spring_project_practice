@@ -5,6 +5,7 @@ import com.example.post.dto.PostResponseDto;
 import com.example.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostResponseDto>> getAllPosts(
+    public ResponseEntity<Page<PostResponseDto>> getAllPosts(
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize
             ) {
@@ -36,7 +37,7 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<PostResponseDto>> getAllPostsByTitle(
+    public ResponseEntity<Page<PostResponseDto>> getAllPostsByTitle(
         @RequestParam(value = "page", defaultValue = "1") int page,
         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
         @RequestParam(value = "title") String title) {
